@@ -1,14 +1,16 @@
 # [Name of the Project] : [Team Number]
 # Members
-Project Manager: [Name] ([GitHub Name])\
-Communications Lead: [Name] ([GitHub Name])\
-Git Master: [Name] ([GitHub Name])\
-Design Lead: [Name] ([GitHub Name])\
-Quality Assurance Tester: [Name] ([GitHub Name])
+Project Manager: [Keith Mayle] ([GitHub Name])\
+Communications Lead: [Skylar David] ([Sdav239])\
+Git Master: [Jaylin Anderson] ([Jand245])\
+Design Lead: [Nile Hedrick] ([GitHub Name])\
+Quality Assurance Tester: [Justin Ramirez] ([Jramx])
 
 # About Our Software
 
-Describe a little about what the project is about here.
+We are planning to develop an automated event finder web application that will dynamically pull event data from sources such as Eventbrite and Google Events. The app will include features such as event filters (by location, date, and type) and links to directions. Additionally, it will suggest popular food spots near each event.
+We are also considering integrating an AI feature to suggest food and drink pairings based on the type of event, offering a unique experience for users attending specific events.
+
 ## Platforms Tested on
 - MacOS
 - Android
