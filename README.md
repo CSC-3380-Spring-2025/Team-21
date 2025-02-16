@@ -1,4 +1,4 @@
-# [Name of the Project] : [Team Number]
+# [Name of the Project] : [21]
 # Members
 Project Manager: [Keith Mayle] ([GitHub Name])\
 Communications Lead: [Skylar David] ([Sdav239])\
