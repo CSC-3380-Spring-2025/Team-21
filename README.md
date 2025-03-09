@@ -3,7 +3,7 @@
 Project Manager: [Keith Mayle] ([keithpdf1])\
 Communications Lead: [Skylar David] ([Sdav239])\
 Git Master: [Jaylin Anderson] ([Jand245])\
-Design Lead: [Nile Hedrick] ([GitHub Name])\
+Design Lead: [Nile Hedrick] ([AnwarTabor])\
 Quality Assurance Tester: [Justin Ramirez] ([Jramx])
 
 # About Our Software
