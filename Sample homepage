@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Finder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+    <header class="text-center mb-6">
+        <h1 class="text-3xl font-bold">Find Events & Food Near You</h1>
+    </header>
+
+    <main class="max-w-2xl mx-auto bg-white p-6 shadow-md rounded">
+        <form method="get" class="flex flex-col md:flex-row gap-4">
+            <input type="text" name="location" placeholder="Enter Location" class="p-2 border rounded w-full">
+            <input type="date" name="date" class="p-2 border rounded w-full">
+            <input type="text" name="category" placeholder="Event Type" class="p-2 border rounded w-full">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full md:w-auto">
+                Search
+            </button>
+        </form>
+
+        <section class="mt-8">
+            <h2 class="text-xl font-semibold mb-4">Upcoming Events</h2>
+
+            <div class="bg-gray-50 p-4 shadow rounded">
+                <h3 class="text-lg font-bold">Event Name</h3>
+                <p class="text-gray-600">Event description goes here...</p>
+                <a href="{{ event.url }}" class="text-blue-500">View Details</a>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>
