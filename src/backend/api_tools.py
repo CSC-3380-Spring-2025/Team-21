@@ -24,6 +24,10 @@ def fetch_event_data() -> Optional[Dict]:
     Returns:
         Optional[Dict]: Parsed JSON response or None if the request fails.
     """
+    
+
+    search: str = input("What kind of event would you like to see?")
+
     # Generate a random page number between 1 and 10
     random_page = random.randint(1, 10)
 
@@ -33,7 +37,7 @@ def fetch_event_data() -> Optional[Dict]:
     # Set up the search parameters
     params = {
         "engine": "google_events",
-        "q": "events near me Baton Rouge",
+        "q": search,
         "hl": "en",
         "api_key": SERP_API_KEY,
         "start": start_index
