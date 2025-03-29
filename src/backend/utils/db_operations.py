@@ -7,7 +7,6 @@ import requests
 
 
 
-
 load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -45,13 +44,12 @@ def insert_events_to_supabase(events: List[Dict[str, Union[str, float]]]) -> Non
         except Exception as e:
             print(f"Error inserting event: {e}")
 
-
 def prompt_user_for_event_data() -> Dict[str, Union[str, float]]:
     print("* denotes required field")
     
     event_data = {}
     
-    # Prompt for event name (required)
+    # Prompt for required fields
     while True:
         event_data["eventname"] = input("Event Name *: ")
         if event_data["eventname"]:
@@ -59,7 +57,6 @@ def prompt_user_for_event_data() -> Dict[str, Union[str, float]]:
         else:
             print("Event Name is required! Please enter a valid event name.")
 
-    # Prompt for event date (required)
     while True:
         event_data["eventdate"] = input("Event Date (YYYY-MM-DD) *: ")
         if event_data["eventdate"]:
@@ -67,47 +64,65 @@ def prompt_user_for_event_data() -> Dict[str, Union[str, float]]:
         else:
             print("Event Date is required! Please enter a valid event date.")
 
-    # Prompt for event location (required)
     while True:
         event_data["eventlocation"] = input("Event Location *: ")
         if event_data["eventlocation"]:
             break
         else:
             print("Event Location is required! Please enter a valid event location.")
-    
-    # Optional fields (can be left blank)
-    event_data["eventdescription"] = input("Event Description (Press Enter to skip): ")
-    event_data["eventlink"] = input("Event Link (Press Enter to skip): ")
-    event_data["ticketinfo"] = input("Ticket Info (Press Enter to skip): ")
-    event_data["venuelink"] = input("Venue Link (Press Enter to skip): ")
 
-    # Prompt for event price (required, validate float input)
     while True:
-        event_data["eventprice"] = input("Event Price (e.g., 25.99) *: ")
-        if event_data["eventprice"]:
+        event_data["eventdescription"] = input("Event Description *: ")
+        if event_data["eventdescription"]:
+            break
+        else:
+            print("Event Description is required! Please enter a valid event description.")
+
+    while True:
+        event_data["eventlink"] = input("Event Link *: ")
+        if event_data["eventlink"]:
+            break
+        else:
+            print("Event Link is required! Please enter a valid event link.")
+
+    while True:
+        event_data["ticketinfo"] = input("Ticket Info *: ")
+        if event_data["ticketinfo"]:
+            break
+        else:
+            print("Ticket Info is required! Please enter valid ticket information.")
+
+    while True:
+        event_data["venuelink"] = input("Venue Link *: ")
+        if event_data["venuelink"]:
+            break
+        else:
+            print("Venue Link is required! Please enter a valid venue link.")
+
+    while True:
+        event_price_input = input("Event Price (e.g., 25.99) *: ")
+        if event_price_input:
             try:
-                event_data["eventprice"] = float(event_data["eventprice"])
+                event_data["eventprice"] = float(event_price_input)
                 break
             except ValueError:
                 print("Invalid input for event price. Please enter a valid number.")
         else:
             print("Event Price is required! Please enter a valid event price.")
     
-    # Optional thumbnail, latitude, and longitude (can be left blank)
-    event_data["thumbnail"] = input("Thumbnail URL (Press Enter to skip): ")
-    event_data["latitude"] = input("Latitude (Press Enter to skip): ")
-    event_data["longitude"] = input("Longitude (Press Enter to skip): ")
-    
-    # Optionally, validate latitude and longitude if provided
-    try:
-        event_data["latitude"] = float(event_data["latitude"]) if event_data["latitude"] else None
-        event_data["longitude"] = float(event_data["longitude"]) if event_data["longitude"] else None
-    except ValueError:
-        print("Invalid input for latitude or longitude. Please enter numeric values.")
-        return {}
+    # Optional fields: thumbnail, latitude, and longitude
+    event_data["thumbnail"] = input("Thumbnail URL (Press Enter to skip): ") or None
+
+    latitude_input = input("Latitude (Press Enter to skip): ")
+    event_data["latitude"] = float(latitude_input) if latitude_input else None
+
+    longitude_input = input("Longitude (Press Enter to skip): ")
+    event_data["longitude"] = float(longitude_input) if longitude_input else None
 
     print(f"Event data collected: {event_data}")
     return event_data
+
+
 
 
 '''

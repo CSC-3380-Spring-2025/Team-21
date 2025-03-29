@@ -10,6 +10,7 @@ from api_tools import fetch_event_data, add_lat_lng_to_events
 import requests
 from typing import List, Dict, Union
 import googlemaps
+import time
 
 load_dotenv()
 
@@ -37,44 +38,36 @@ def main():
             insert_events_to_supabase([event_data])
 
     elif choice == '2':
-        # search database for event data. if no matches call SERPapi
-        search_term = input("Enter a search term to find events: ")
-        
-        print(f"Searching database for: {search_term}")
-        results = search_from_db(search_term)
-        
-        if results:
-            print("Search results:")
-            for result in results:
+        search_term = input("what ya looking for?")
+
+        db_results = search_from_db(search_term)
+
+        if db_results:
+            print("Found:")
+
+            for result in db_results:
                 print(result)
+
         else:
-            print("No results found in the database. Fetching new event data...")
-
-            # Fetch event data from external source
-            fetched_data = fetch_event_data()
-
-            if fetched_data:
-                print("New events fetched from the external source.")
-                
-                # Now process the fetched data using extract_event_data
-                event_data = extract_event_data(fetched_data)  # Assuming extract_event_data processes the fetched data
-
-                if event_data:
-                    print("Processed events:")
-                    for event in event_data:
-                        print(event)
-
-                    # Optionally, insert the new events into the database
-                    insert_events_to_supabase(event_data)
-                else:
-                    print("No valid events found after extraction.")
-            else:
-                print("No new events found.")
-    
-    else:
-        print("Invalid choice please enter 1 or 2.")
-
-main()
-
-
+            print("One moment")
+            
+            #hit the api to get new data on the serch term(incase its not already in the database)
+            fetched_data: Dict = fetch_event_data(search_term)
+            
+            events_list: List[Dict] = fetched_data.get('events_results', [])
+            
+            extracted_events = []
+            for event in events_list:
+                try:
+                    extracted_event_data = extract_event_data(event)
+                    if extracted_event_data:
+                        extracted_events.append(extracted_event_data)
+                    else:
+                        print(f"FAILED TO EXTRACT EVENT DATA")
+                except Exception as e:
+                    print(f"Error processing event {event} : {e}" )
+                    
+            insert_events_to_supabase(extracted_events)
+            
+            
 main()

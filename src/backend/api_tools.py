@@ -20,7 +20,7 @@ else:
     print("API key successfully loaded.")
 
 # Define the function to fetch event data
-def fetch_event_data() -> Optional[Dict]:
+def fetch_event_data(query: str) -> Optional[Dict]:
     """
     Fetches event data from the SERP API with randomized pagination.
 
@@ -29,7 +29,6 @@ def fetch_event_data() -> Optional[Dict]:
     """
     
 
-    search: str = input("What kind of event would you like to see?")
 
     # Generate a random page number between 1 and 10
     random_page = random.randint(1, 10)
@@ -40,7 +39,7 @@ def fetch_event_data() -> Optional[Dict]:
     # Set up the search parameters
     params = {
         "engine": "google_events",
-        "q": search,
+        "q": query,
         "hl": "en",
         "api_key": SERP_API_KEY,
         "start": start_index
@@ -112,3 +111,6 @@ events_list = [test_event]
 updated_events = add_lat_lng_to_events(events_list, gmaps)
 print(updated_events)
 '''
+
+
+
