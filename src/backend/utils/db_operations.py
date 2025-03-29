@@ -5,6 +5,7 @@ from supabase import create_client
 from dotenv import load_dotenv
 import requests
 import re
+from datetime import datetime
 
 
 
@@ -126,7 +127,7 @@ def prompt_user_for_event_data() -> Dict[str, Union[str, float]]:
     longitude_input = input("Longitude (Press Enter to skip): ")
     event_data["longitude"] = float(longitude_input) if longitude_input else None
     
-    # New optional field: Event Start Time
+    # optional field: Event Start Time
     while True:
         event_start_time_input = input("Event Start Time (HH:MM, 24-hour format, Press Enter to skip): ")
         if event_start_time_input:
@@ -139,7 +140,7 @@ def prompt_user_for_event_data() -> Dict[str, Union[str, float]]:
             event_data["starttime"] = None
             break
     
-    # New required field: Event Day
+    #required field: Event Day
     while True:
         event_day_input = input("Event Day (YYYY-MM-DD) *: ")
         if event_day_input:
@@ -202,3 +203,51 @@ else:
     print("no results found.")
 
     '''
+
+def fetch_events():
+    response = supabase.table('eventdata').select('eventid', 'eventday', 'starttime').execute()
+
+   # Supabase's response might not have an explicit `error` attribute; use a try/except block to catch errors.
+    try:
+        if response.data:
+            return response.data
+        else:
+            print("No data fetched from Supabase.")
+            return []
+    except Exception as e:
+        print(f"Error fetching data from Supabase: {e}")
+        return []
+
+
+def sort_events(events):
+    def get_sort_key(event):
+        event_day = datetime.strptime(event['eventday'], '%Y-%m-%d')
+        
+        event_time = None
+        if event.get('starttime'):
+            try:
+                event_time = datetime.strptime(event['starttime'], '%H:%M:%S') if event.get('starttime') else None
+            except ValueError:
+                pass
+
+        if event_time is None:
+            event_time = datetime.strptime('00:00', '%H:%M')
+
+        return (event_day, event_time, event['eventid'])
+
+    sorted_events = sorted(events, key=get_sort_key)
+    return sorted_events
+
+
+
+
+def test_sort():
+    events = fetch_events()
+    if events:
+        sorted_events = sort_events(events)
+        print("Sorted Events:")
+        for event in sorted_events:
+            print(event)
+
+
+test_sort()
