@@ -4,7 +4,8 @@ import os
 from supabase import create_client
 from dotenv import load_dotenv
 import requests
-
+import re
+from datetime import datetime
 
 
 
@@ -35,23 +36,24 @@ def insert_events_to_supabase(events: List[Dict[str, Union[str, float]]]) -> Non
                     "eventprice": event["eventprice"],
                     "thumbnail": event["thumbnail"],
                     "latitude": event["latitude"],
-                    "longitude": event["longitude"]
+                    "longitude": event["longitude"],
+                    "eventday" : event["eventday"],
+                    "starttime" : event["starttime"]
                 }
 
                 response = supabase.table("eventdata").insert(data).execute()
-                print(f"Inserted response: {response.data}")  # Debugging: print the response from the insert
+                #print(f"Inserted response: {response.data}")  # Debugging: print the response from the insert
             else:
                 print(f"Event '{event['eventname']}' already exists. Skipping insert.")
         except Exception as e:
             print(f"Error inserting event: {e}")
-
 
 def prompt_user_for_event_data() -> Dict[str, Union[str, float]]:
     print("* denotes required field")
     
     event_data = {}
     
-    # Prompt for event name (required)
+    # Prompt for required fields
     while True:
         event_data["eventname"] = input("Event Name *: ")
         if event_data["eventname"]:
@@ -59,55 +61,101 @@ def prompt_user_for_event_data() -> Dict[str, Union[str, float]]:
         else:
             print("Event Name is required! Please enter a valid event name.")
 
-    # Prompt for event date (required)
     while True:
         event_data["eventdate"] = input("Event Date (YYYY-MM-DD) *: ")
         if event_data["eventdate"]:
-            break
+            # Enforce YYYY-MM-DD format
+            if re.match(r"\d{4}-\d{2}-\d{2}", event_data["eventdate"]):
+                break
+            else:
+                print("Invalid date format. Please use YYYY-MM-DD.")
         else:
             print("Event Date is required! Please enter a valid event date.")
 
-    # Prompt for event location (required)
     while True:
         event_data["eventlocation"] = input("Event Location *: ")
         if event_data["eventlocation"]:
             break
         else:
             print("Event Location is required! Please enter a valid event location.")
-    
-    # Optional fields (can be left blank)
-    event_data["eventdescription"] = input("Event Description (Press Enter to skip): ")
-    event_data["eventlink"] = input("Event Link (Press Enter to skip): ")
-    event_data["ticketinfo"] = input("Ticket Info (Press Enter to skip): ")
-    event_data["venuelink"] = input("Venue Link (Press Enter to skip): ")
 
-    # Prompt for event price (required, validate float input)
     while True:
-        event_data["eventprice"] = input("Event Price (e.g., 25.99) *: ")
-        if event_data["eventprice"]:
+        event_data["eventdescription"] = input("Event Description *: ")
+        if event_data["eventdescription"]:
+            break
+        else:
+            print("Event Description is required! Please enter a valid event description.")
+
+    while True:
+        event_data["eventlink"] = input("Event Link *: ")
+        if event_data["eventlink"]:
+            break
+        else:
+            print("Event Link is required! Please enter a valid event link.")
+
+    while True:
+        event_data["ticketinfo"] = input("Ticket Info *: ")
+        if event_data["ticketinfo"]:
+            break
+        else:
+            print("Ticket Info is required! Please enter valid ticket information.")
+
+    while True:
+        event_data["venuelink"] = input("Venue Link *: ")
+        if event_data["venuelink"]:
+            break
+        else:
+            print("Venue Link is required! Please enter a valid venue link.")
+
+    while True:
+        event_price_input = input("Event Price (e.g., 25.99) *: ")
+        if event_price_input:
             try:
-                event_data["eventprice"] = float(event_data["eventprice"])
+                event_data["eventprice"] = float(event_price_input)
                 break
             except ValueError:
                 print("Invalid input for event price. Please enter a valid number.")
         else:
             print("Event Price is required! Please enter a valid event price.")
     
-    # Optional thumbnail, latitude, and longitude (can be left blank)
-    event_data["thumbnail"] = input("Thumbnail URL (Press Enter to skip): ")
-    event_data["latitude"] = input("Latitude (Press Enter to skip): ")
-    event_data["longitude"] = input("Longitude (Press Enter to skip): ")
+    # Optional fields: thumbnail, latitude, and longitude
+    event_data["thumbnail"] = input("Thumbnail URL (Press Enter to skip): ") or None
+
+    latitude_input = input("Latitude (Press Enter to skip): ")
+    event_data["latitude"] = float(latitude_input) if latitude_input else None
+
+    longitude_input = input("Longitude (Press Enter to skip): ")
+    event_data["longitude"] = float(longitude_input) if longitude_input else None
     
-    # Optionally, validate latitude and longitude if provided
-    try:
-        event_data["latitude"] = float(event_data["latitude"]) if event_data["latitude"] else None
-        event_data["longitude"] = float(event_data["longitude"]) if event_data["longitude"] else None
-    except ValueError:
-        print("Invalid input for latitude or longitude. Please enter numeric values.")
-        return {}
+    # optional field: Event Start Time
+    while True:
+        event_start_time_input = input("Event Start Time (HH:MM, 24-hour format, Press Enter to skip): ")
+        if event_start_time_input:
+            if re.match(r"([01]?[0-9]|2[0-3]):([0-5][0-9])", event_start_time_input):
+                event_data["starttime"] = event_start_time_input
+                break
+            else:
+                print("Invalid time format. Please enter time in HH:MM format.")
+        else:
+            event_data["starttime"] = None
+            break
+    
+    #required field: Event Day
+    while True:
+        event_day_input = input("Event Day (YYYY-MM-DD) *: ")
+        if event_day_input:
+            # Enforce YYYY-MM-DD format
+            if re.match(r"\d{4}-\d{2}-\d{2}", event_day_input):
+                event_data["eventday"] = event_day_input
+                break
+            else:
+                print("Invalid date format. Please use YYYY-MM-DD.")
+        else:
+            print("Event Day is required! Please enter a valid event day.")
 
     print(f"Event data collected: {event_data}")
     return event_data
+
 
 
 '''
@@ -155,3 +203,51 @@ else:
     print("no results found.")
 
     '''
+
+def fetch_events():
+    response = supabase.table('eventdata').select('eventid', 'eventday', 'starttime').execute()
+
+   # Supabase's response might not have an explicit `error` attribute; use a try/except block to catch errors.
+    try:
+        if response.data:
+            return response.data
+        else:
+            print("No data fetched from Supabase.")
+            return []
+    except Exception as e:
+        print(f"Error fetching data from Supabase: {e}")
+        return []
+
+
+def sort_events(events):
+    def get_sort_key(event):
+        event_day = datetime.strptime(event['eventday'], '%Y-%m-%d')
+        
+        event_time = None
+        if event.get('starttime'):
+            try:
+                event_time = datetime.strptime(event['starttime'], '%H:%M:%S') if event.get('starttime') else None
+            except ValueError:
+                pass
+
+        if event_time is None:
+            event_time = datetime.strptime('00:00', '%H:%M')
+
+        return (event_day, event_time, event['eventid'])
+
+    sorted_events = sorted(events, key=get_sort_key)
+    return sorted_events
+
+
+
+
+def test_sort():
+    events = fetch_events()
+    if events:
+        sorted_events = sort_events(events)
+        print("Sorted Events:")
+        for event in sorted_events:
+            print(event)
+
+
+test_sort()
