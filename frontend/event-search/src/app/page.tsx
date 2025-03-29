@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import EventCarousel from "./components/EventCarousel";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -17,7 +18,8 @@ export default function Home() {
         <div className="w-full max-w-2x1">
           <div className="border-1 border-black border-solid p-4 rounded-lg">
             <div className="w-128 mx-auto">
-              <form method="get" className="flex flex-col md:flex-row gap-4">
+              {/* add method="get" when api is ready */}
+              <form className="flex flex-col md:flex-row gap-4">
                 <Input
                   type="text"
                   name="location"
@@ -35,7 +37,9 @@ export default function Home() {
                   placeholder="Event Type"
                   className="p-2 border rounded w-full"
                 />
-                <Button>Search</Button>
+
+                <Link href={"/search"}><Button>Search</Button></Link>
+                
               </form>
             </div>
             <div className="mt-8">
