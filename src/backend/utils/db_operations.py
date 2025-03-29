@@ -4,6 +4,7 @@ import os
 from supabase import create_client
 from dotenv import load_dotenv
 import requests
+import re
 
 
 
@@ -34,11 +35,13 @@ def insert_events_to_supabase(events: List[Dict[str, Union[str, float]]]) -> Non
                     "eventprice": event["eventprice"],
                     "thumbnail": event["thumbnail"],
                     "latitude": event["latitude"],
-                    "longitude": event["longitude"]
+                    "longitude": event["longitude"],
+                    "eventday" : event["eventday"],
+                    "starttime" : event["starttime"]
                 }
 
                 response = supabase.table("eventdata").insert(data).execute()
-                print(f"Inserted response: {response.data}")  # Debugging: print the response from the insert
+                #print(f"Inserted response: {response.data}")  # Debugging: print the response from the insert
             else:
                 print(f"Event '{event['eventname']}' already exists. Skipping insert.")
         except Exception as e:
@@ -60,7 +63,11 @@ def prompt_user_for_event_data() -> Dict[str, Union[str, float]]:
     while True:
         event_data["eventdate"] = input("Event Date (YYYY-MM-DD) *: ")
         if event_data["eventdate"]:
-            break
+            # Enforce YYYY-MM-DD format
+            if re.match(r"\d{4}-\d{2}-\d{2}", event_data["eventdate"]):
+                break
+            else:
+                print("Invalid date format. Please use YYYY-MM-DD.")
         else:
             print("Event Date is required! Please enter a valid event date.")
 
@@ -118,10 +125,35 @@ def prompt_user_for_event_data() -> Dict[str, Union[str, float]]:
 
     longitude_input = input("Longitude (Press Enter to skip): ")
     event_data["longitude"] = float(longitude_input) if longitude_input else None
+    
+    # New optional field: Event Start Time
+    while True:
+        event_start_time_input = input("Event Start Time (HH:MM, 24-hour format, Press Enter to skip): ")
+        if event_start_time_input:
+            if re.match(r"([01]?[0-9]|2[0-3]):([0-5][0-9])", event_start_time_input):
+                event_data["starttime"] = event_start_time_input
+                break
+            else:
+                print("Invalid time format. Please enter time in HH:MM format.")
+        else:
+            event_data["starttime"] = None
+            break
+    
+    # New required field: Event Day
+    while True:
+        event_day_input = input("Event Day (YYYY-MM-DD) *: ")
+        if event_day_input:
+            # Enforce YYYY-MM-DD format
+            if re.match(r"\d{4}-\d{2}-\d{2}", event_day_input):
+                event_data["eventday"] = event_day_input
+                break
+            else:
+                print("Invalid date format. Please use YYYY-MM-DD.")
+        else:
+            print("Event Day is required! Please enter a valid event day.")
 
     print(f"Event data collected: {event_data}")
     return event_data
-
 
 
 

@@ -2,15 +2,16 @@ from flask import Flask
 import os
 from dotenv import load_dotenv
 from supabase import create_client, Client
-from utils.serp_data_parser import extract_event_data
+from utils.serp_data_parser import extract_event_data, parse_event_datetime
 from utils.db_operations import insert_events_to_supabase, prompt_user_for_event_data, search_from_db
 import ast
 from datetime import datetime
 from api_tools import fetch_event_data, add_lat_lng_to_events
 import requests
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Tuple, Optional
 import googlemaps
 import time
+import re
 
 load_dotenv()
 
@@ -66,8 +67,13 @@ def main():
                         print(f"FAILED TO EXTRACT EVENT DATA")
                 except Exception as e:
                     print(f"Error processing event {event} : {e}" )
-                    
-            insert_events_to_supabase(extracted_events)
+
+            
+            events_with_coords = add_lat_lng_to_events(extracted_events, gmaps)
+            datetimed_events = parse_event_datetime(events_with_coords)
+            
+            insert_events_to_supabase(datetimed_events)
+            print(datetimed_events)
             
             
 main()
