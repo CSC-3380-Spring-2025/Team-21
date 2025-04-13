@@ -1,0 +1,6 @@
+CREATE TABLE profiles (
+    id uuid PRIMARY KEY REFERENCES auth.users(id),
+    email TEXT UNIQUE,
+    name TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
