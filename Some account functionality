@@ -1,0 +1,26 @@
+def register_user(email: str, password: str) -> bool:
+    try:
+        response = supabase.auth.sign_up(email=email, password=password)
+        if response.user:
+            print("User registered successfully.")
+            return True
+        else:
+            print(f"Registration failed")
+            return False
+    except Exception as e:
+        print(f"Error during registration: {e}")
+        return False
+
+
+def login_user(email: str, password: str) -> bool:
+    try:
+        response = supabase.auth.sign_in_with_password(email=email, password=password)
+        if response.session:
+            print("Logged in successfully.")
+            return True
+        else:
+            print(f"Login failed")
+            return False
+    except Exception as e:
+        print(f"Error during login: {e}")
+        return False
