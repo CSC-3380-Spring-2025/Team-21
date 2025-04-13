@@ -256,7 +256,9 @@ test_sort()
 def get_all_events(supabase: Client):
     try:
         events = supabase.table("eventdata").select("*").execute()
-        return events.data
+        print("Fetched events from DB:", events.data)
+        return {"events" : events.data}
+
     except Exception as e:
         print(f"Error fetching events: {e}")
         return[]    
