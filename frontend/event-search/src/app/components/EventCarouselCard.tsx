@@ -1,16 +1,50 @@
-import React from "react"
+import React from "react";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card"
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 
-function EventCarouselCard() {
+type Event = {
+  
+  eventname: string;
+  eventdate: string;
+  eventlocation: string;
+  eventdescription: string;
+  thumbnail?: string | null; // Optional thumbnail field
+};
+
+type Props = {
+  eventData: Event;
+};
+
+const EventCard: React.FC<Props> = ({ eventData }) => {
   return (
-    <div>EventCarouselCard</div>
-  )
-}
-export default EventCarouselCard
+    <Card className="w-72 m-2">
+      <CardHeader>
+        {/* Conditionally render the event thumbnail */}
+        {eventData.thumbnail ? (
+          <img
+            src={eventData.thumbnail}
+            alt={eventData.eventname}
+            className="w-full h-40 object-cover rounded-md"
+          />
+        ) : (
+          <div className="w-full h-40 bg-gray-200 rounded-md">No Thumbnail</div> // Placeholder if no thumbnail
+        )}
+        <CardTitle>{eventData.eventname}</CardTitle>
+        <CardDescription>{eventData.eventlocation}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>{eventData.eventdescription}</p>
+        <p>
+          <strong>Date:</strong> {eventData.eventdate}
+        </p>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default EventCard;
