@@ -7,12 +7,13 @@ import Link from "next/link";
 
 // Define the Event type matching the backend response
 type Event = {
-  id : string;
+  eventid: number;
   eventname: string;
   eventdate: string;
   eventlocation: string;
   eventdescription: string;
   eventthumbnail?: string | null;
+  ticketLink: string;
 };
 
 // Function to fetch events from the backend.
