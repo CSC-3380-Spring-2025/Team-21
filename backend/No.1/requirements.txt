@@ -1,0 +1,5 @@
+pandas
+fasttext
+fuzzywuzzy
+python-levenshtein
+scikit-learn
