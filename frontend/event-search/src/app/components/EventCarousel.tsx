@@ -17,18 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import MapsPanel from '../components/MapsPannel'; // Import the MapsPanel component
 
-// Define the event type
-type Event = {
-  eventid: number;
-  eventname: string;
-  eventdate: string;
-  eventlocation: string;
-  eventdescription: string;
-  thumbnail?: string | null;
-  latitude: number;
-  longitude: number;
-};
-
+import { Event } from "@/types"; // Import the Event type I also merged the two types into one
 interface EventCarouselProps {
   events: Event[];
 }
@@ -49,7 +38,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
     setShowMap(false); // Hide the map when closing the modal
   };
 
-  const handleGetDirectionsClick = () => {
+  const honandleGetDirectionsClick = () => {
     setShowMap(true); // Show the map when the button is clicked
   };
 
@@ -148,7 +137,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
                   Buy Tickets
                 </button>
                 <button
-                  onClick={handleGetDirectionsClick} // Show the map when clicked
+                  onClick={honandleGetDirectionsClick} // Show the map when clicked
                   className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                 >
                   Get directions

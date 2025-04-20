@@ -34,7 +34,7 @@ def get_event_route():
 @app.route("/api/events/search", methods=["GET"])
 def search_events_route():
     query = request.args.get("query")  # Get search query from URL parameters
-    events = search_from_db(supabase, query)  
+    events = search_from_db(query)  
     return jsonify(events)
 
 

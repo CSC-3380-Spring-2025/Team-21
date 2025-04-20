@@ -3,44 +3,18 @@ import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import EventCarousel from "./components/EventCarousel";
-import Link from "next/link";
+import { useRouter } from 'next/navigation'; // 
 
-// Define the Event type matching the backend response
-type Event = {
-  eventid: number;
-  eventname: string;
-  eventdate: string;
-  eventlocation: string;
-  eventdescription: string;
-  eventthumbnail?: string | null;
-  ticketLink: string;
-};
+import { fetchEvents } from "./utils/pythonFetch"; // Refactor the fetch function to a separate file so database is not exposed to the frontend
+import { Event } from "@/types"; // Import the moved event type
 
-// Function to fetch events from the backend.
-// If a query is provided, this fetches filtered events from the search route.
-const fetchEvents = async (query: string = ""): Promise<Event[]> => {
-  try {
-    // Use the search route if a search query is provided
-    const url = query
-      ? `http://127.0.0.1:5000/api/events/search?query=${encodeURIComponent(query)}`
-      : "http://127.0.0.1:5000/api/events";
-    const response = await fetch(url);
-    if (!response.ok) throw new Error("Failed to fetch events");
-    const data = await response.json();
-    // Assuming that your backend returns an object with an "events" key.
-    // If it returns an array directly, replace "data.events" with "data".
-    return data.events || data;
-  } catch (error) {
-    console.error("Error fetching events:", error);
-    return [];
-  }
-};
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
 
   // On initial render, fetch all events (no search filter)
   useEffect(() => {
@@ -58,18 +32,17 @@ export default function Home() {
   }, []);
 
   // Handle search: when the user clicks the Search button,
-  // fetch events based on the provided search query.
-  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+  // fetch events based on the provided search text.
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission behavior
-    setLoading(true);
-    try {
-      const fetchedEvents = await fetchEvents(searchQuery);
-      setEvents(fetchedEvents);
-    } catch (err) {
-      setError("Failed to fetch search results");
-    } finally {
-      setLoading(false);
+
+    if (!searchQuery.trim()) {
+      console.log("Search query is empty.");
+      return;
     }
+
+    // Navigate to the search results page, passing the query
+    router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
   };
 
   return (
