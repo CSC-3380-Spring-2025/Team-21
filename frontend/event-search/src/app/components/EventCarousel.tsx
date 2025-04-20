@@ -38,7 +38,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
     setShowMap(false); // Hide the map when closing the modal
   };
 
-  const honandleGetDirectionsClick = () => {
+  const handleGetDirectionsClick = () => {
     setShowMap(true); // Show the map when the button is clicked
   };
 
@@ -137,7 +137,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
                   Buy Tickets
                 </button>
                 <button
-                  onClick={honandleGetDirectionsClick} // Show the map when clicked
+                  onClick={handleGetDirectionsClick} // Show the map when clicked
                   className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                 >
                   Get directions
