@@ -15,6 +15,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import SearchLoadingSkeletons from "../components/SearchLoadingSkeletons";
 
 // --- Import Type and Fetch Function ---
 import type { SerpApiEvent } from "@/types"; 
@@ -44,28 +45,7 @@ const fetchEvents = async (query: string): Promise<SerpApiEvent[]> => {
     throw error; // Re-throw to be caught by the component
   }
 };
-// Skeleton Loader Component
-const LoadingSkeletons = ({ count = 6 }: { count?: number }) => (
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {Array.from({ length: count }).map((_, index) => (
-      <Card key={index} className="flex flex-col h-80">
-        {" "}
-        <CardHeader>
-          <Skeleton className="h-6 w-3/4" />
-          <Skeleton className="mt-2 h-4 w-1/2" />
-        </CardHeader>
-        <CardContent className="flex-grow">
-          <div className="space-y-2">
-            {" "}
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-5/6" />
-          </div>
-        </CardContent>
-      </Card>
-    ))}
-  </div>
-);
+
 
 // SeacrhResults Component
 const SearchResults = () => {
@@ -142,7 +122,7 @@ const SearchResults = () => {
       </div>
 
       {/* Results Area */}
-      {loading && <LoadingSkeletons />}
+      {loading && <SearchLoadingSkeletons />}
 
       {!loading && error && <p className="text-red-500 text-center">{error}</p>}
 
@@ -359,7 +339,7 @@ const SearchResults = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        View Event Source
+                        View Event Page
                       </a>
                     </Button>
                   </CardFooter>
@@ -377,7 +357,7 @@ const SearchResults = () => {
 // Wrap the component that uses useSearchParams in Suspense so that it will be skeletons when loading :)
 export default function SearchResultsPage() {
   return (
-    <Suspense fallback={<LoadingSkeletons />}>
+    <Suspense fallback={<SearchLoadingSkeletons />}>
       {" "}
       {/* Show skeletons during initial load */}
       <SearchResults />
