@@ -1,8 +1,7 @@
-
 import React from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button"; 
-import Link from "next/link";  // Add Link import
+import Link from "next/link";  
 
 type Event = {
   eventid: number;
@@ -19,9 +18,8 @@ type Props = {
 
 const EventCard: React.FC<Props> = ({ eventData }) => {
   return (
-    <Card className="w-72 m-2">
+    <Card className="w-72 m-2 flex flex-col justify-between">
       <CardHeader>
-        {/* Conditionally render the event thumbnail */}
         {eventData.thumbnail ? (
           <img
             src={eventData.thumbnail}
@@ -29,27 +27,37 @@ const EventCard: React.FC<Props> = ({ eventData }) => {
             className="w-full h-40 object-cover rounded-md"
           />
         ) : (
-          <div className="w-full h-40 bg-gray-200 rounded-md">No Thumbnail</div> // Placeholder if no thumbnail
+          <div className="w-full h-40 bg-gray-200 rounded-md flex items-center justify-center text-sm text-gray-500">
+            No Thumbnail
+          </div>
         )}
       </CardHeader>
 
-      <CardContent>
-        <CardTitle className="text-lg font-semibold">{eventData.eventname}</CardTitle>
-        <CardDescription className="text-sm text-gray-500">{eventData.eventlocation}</CardDescription>
+      <CardContent className="flex-grow flex flex-col justify-between">
+        <div>
+          <CardTitle className="text-lg font-semibold line-clamp-1">
+            {eventData.eventname}
+          </CardTitle>
 
-        {/* Move the date above the description */}
-        <p className="mt-2 text-sm">
-          <strong>Date:</strong> {eventData.eventdate}
-        </p>
+          <CardDescription className="text-sm text-gray-500 line-clamp-1">
+            {eventData.eventlocation}
+          </CardDescription>
 
-        {/* Shorten the description if it's too long */}
-        <p className="truncate">{eventData.eventdescription}</p>
+          <p className="mt-2 text-sm line-clamp-1">
+            <strong>Date:</strong> {eventData.eventdate}
+          </p>
+
+          <p className="mt-2 text-sm line-clamp-2">
+            {eventData.eventdescription}
+          </p>
+        </div>
       </CardContent>
 
-      <CardFooter className="flex justify-end mt-auto">
+      <CardFooter className="mt-auto">
         <Link href={`/event-details/${eventData.eventid}`} passHref>
-        console.log("eventid going to link:", event.eventid);
-          <Button variant="outline">See Details</Button> {/* Updated button to link to event details */}
+          <Button variant="outline" className="w-full">
+            See Details
+          </Button>
         </Link>
       </CardFooter>
     </Card>

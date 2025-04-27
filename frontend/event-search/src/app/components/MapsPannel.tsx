@@ -26,7 +26,7 @@ const MapsPanel: React.FC<MapsPanelProps> = ({ destinationLat, destinationLng })
           type="text"
           placeholder="Enter start location"
           value={startLocation}
-          onChange={(e) => setStartLocation(e.target.value)} // Update the state here
+          onChange={(e) => setStartLocation(e.target.value)} 
           className="border p-2 w-full mb-4"
         />
         <button
