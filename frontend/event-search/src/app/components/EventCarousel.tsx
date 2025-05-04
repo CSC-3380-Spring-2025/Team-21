@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import {
   Card,
   CardContent,
@@ -16,83 +15,68 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
+import MapsPanel from '../components/MapsPannel'; // Import the MapsPanel component
 
+import { Event } from "@/types"; // Import the Event type I also merged the two types into one
+interface EventCarouselProps {
+  events: Event[];
+}
 
-const eventList: {
-  name: string;
-  date: string;
-  location: string;
-  description: string;
-}[] = [
-  {
-    name: "20th Annual Zapp's International Beerfest",
-    date: "March 22",
-    location: "Baton Rouge",
-    description:
-      "Raise your glass and join the celebration at the 20th Annual Zapp’s International Beerfest, hosted by the Friends of LSU Rural Life Museum and proudly sponsored by Utz Brands! This beloved Baton Rouge tradition offers an incredible opportunity to sample over 200 domestic and international beers and ales, including crowd-favorite homebrews.",
-  },
-  {
-    name: "Louisiana Red Beans and Rice Heritage and Music Festival Kickoff Brunch",
-    date: "March 22",
-    location: "Baton Rouge",
-    description:
-      "Join us for the 2025 LRBR Red Beans ans Rice Heritage and Music Festival Kickoff Brunch featuring the *Lil Nate and The Zydeco Big Timers.",
-  },
-  {
-    name: "R&B KARAOKE NIGHT",
-    date: "March 22",
-    location: "Baton Rouge",
-    description:
-      "🔉 BOOSIE BASH 2025 🔉Let’s Get It!! Boosie Bash 6 Will Be Nothing Short Of AMAZING!!! We’re Giving You THREE Action-Packed Days & Nights Of Electric, Star-Studded Events!! Make Plans To Stay In Baton Rouge The ENTIRE WEEKEND!!!!For Our FIRST NIGHT… We’re Gonna Have Some Grown Folks FUN!!",
-  },
-  {
-    name: "The Silly Rabbit Comedy Club Presents: Mighty King",
-    date: "March 21",
-    location: "Baton Rouge",
-    description:
-      "Get ready for a MIGHTY night at The Silly Rabbit Comedy Club. Drinks, Laughter & a Great Night! Grab your tickets TODAY!",
-  },
-  {
-    name: "The Turner-Fischer Center Presents: Candide",
-    date: "March 23",
-    location: "Baton Rouge",
-    description:
-      "Join us as we seek the Best of All Possible Worlds, as the Turner-Fischer Center for Opera presents composer Leonard Bernstein and Co.'s legendary and entertaining Candide!",
-  },
-  {
-    name: "FEMPROV (Part of That Time of the Month: Celebrating Women in Comedy)",
-    date: "March 22",
-    location: "Baton Rouge",
-    description:
-      "Monthly women's improv show the fourth Saturday at 9 p.m. featuring some of the funniest comedians around.",
-  },
-];
+const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
+  const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
+  const [showMap, setShowMap] = React.useState<boolean>(false); // State for map visibility
 
-export default function EventCarousel() {
+  const handleDetailsClick = (event: Event) => {
+    setSelectedEvent(event);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedEvent(null);
+    setShowMap(false); // Hide the map when closing the modal
+  };
+
+  const handleGetDirectionsClick = () => {
+    setShowMap(true); // Show the map when the button is clicked
+  };
+
   return (
     <div className="relative px-10">
-      <Carousel
-        opts={{
-          align: "center",
-        }}
-        className=""
-      >
+      <Carousel opts={{ align: "center" }}>
         <CarouselContent>
-          {eventList.map((_, index) => (
+          {events.map((event, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
               <div className="p-1">
                 <Card className="h-96 flex flex-col">
-                  <CardHeader className="">
-                    <CardTitle className="text-3xl">
-                      {_.name}
-                    </CardTitle>
-                    <CardDescription className="overflow-auto">
-                      {_.description}
+                  <CardHeader>
+                    {event.thumbnail ? (
+                      <img
+                        src={event.thumbnail}
+                        alt={event.eventname}
+                        className="w-full h-40 object-cover rounded-md"
+                      />
+                    ) : (
+                      <div className="w-full h-40 bg-gray-200 rounded-md flex items-center justify-center text-sm text-gray-500">
+                        No Thumbnail
+                      </div>
+                    )}
+                    <CardTitle className="text-2xl">{event.eventname}</CardTitle>
+                    <p className="mt-2 text-sm">
+                      <strong>Date:</strong> {event.eventdate}
+                    </p>
+                    <CardDescription className="overflow-hidden mt-2 text-ellipsis">
+                      <div className="line-clamp-2">{event.eventdescription}</div>
                     </CardDescription>
                   </CardHeader>
+
                   <CardFooter className="flex justify-between mt-auto">
-                    <p>{_.date}, {_.location}</p>
-                    <Button>Directions</Button>
+                    <p className="truncate text-sm">{event.eventlocation}</p>
+
+                    <Button onClick={() => handleDetailsClick(event)} className="ml-2 self-end">
+                      See details
+                    </Button>
                   </CardFooter>
                 </Card>
               </div>
@@ -102,6 +86,77 @@ export default function EventCarousel() {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
+
+      {/* Modal */}
+      {isModalOpen && selectedEvent && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-xl shadow-lg max-w-5xl w-full mx-4 sm:mx-0 overflow-hidden">
+            {/* Thumbnail */}
+            {selectedEvent.thumbnail ? (
+              <img
+                src={selectedEvent.thumbnail}
+                alt={selectedEvent.eventname}
+                className="w-full h-72 object-cover"
+              />
+            ) : (
+              <div className="w-full h-72 bg-gray-300 flex items-center justify-center text-gray-600">
+                No Thumbnail Available
+              </div>
+            )}
+
+            {/* Modal Content */}
+            <div className="p-8">
+              <h2 className="text-3xl font-bold mb-2">
+                {selectedEvent.eventname}
+              </h2>
+              <p className="text-md text-gray-600 mb-4">
+                <strong>Date:</strong> {selectedEvent.eventdate}
+              </p>
+
+              <p className="text-gray-800 mb-6 whitespace-pre-line">
+                {selectedEvent.eventdescription}
+              </p>
+
+              <div className="mb-4">
+                <p className="text-gray-700">
+                  <strong>Location:</strong> {selectedEvent.eventlocation}
+                </p>
+                <p className="text-gray-700 mt-1">
+                  <strong>Tickets:</strong> General Admission – $25
+                </p>
+              </div>
+
+              <div className="flex flex-wrap justify-end gap-4 pt-6 border-t mt-6">
+                <button
+                  onClick={closeModal}
+                  className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                >
+                  Close
+                </button>
+                <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                  Buy Tickets
+                </button>
+                <button
+                  onClick={handleGetDirectionsClick} // Show the map when clicked
+                  className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                >
+                  Get directions
+                </button>
+              </div>
+
+              {/* Maps Panel for Directions - Only show when 'Get directions' is clicked */}
+              {showMap && (
+                <MapsPanel
+                  destinationLat={selectedEvent.latitude}
+                  destinationLng={selectedEvent.longitude}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default EventCarousel;
