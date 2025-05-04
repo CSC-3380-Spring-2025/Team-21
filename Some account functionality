@@ -8,6 +8,9 @@ def validate_password(password: str) -> bool:
     if not re.search(r"[A-Z]", password):
         print("Password must contain at least one uppercase letter.")
         return False
+    if not re.search(r"[a-z]", password):
+        print("Password must contain at least one lowercase letter.")
+        return False
     if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password): 
         print("Password must contain at least one special character.")
         return False
