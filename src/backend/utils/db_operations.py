@@ -43,6 +43,8 @@ def insert_events_to_supabase(events: List[Dict[str, Union[str, float]]]) -> Non
 
                 response = supabase.table("eventdata").insert(data).execute()
                 #print(f"Inserted response: {response.data}")  # Debugging: print the response from the insert
+                print(f"Insert response from Supabase: {response}")
+
             else:
                 print(f"Event '{event['eventname']}' already exists. Skipping insert.")
         except Exception as e:
