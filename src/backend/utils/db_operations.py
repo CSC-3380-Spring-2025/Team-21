@@ -240,7 +240,7 @@ def sort_events(events):
 
 
 
-
+'''
 def test_sort():
     events = fetch_events()
     if events:
@@ -251,3 +251,14 @@ def test_sort():
 
 
 test_sort()
+'''
+
+def get_all_events(supabase: Client):
+    try:
+        events = supabase.table("eventdata").select("*").execute()
+        print("Fetched events from DB:", events.data)
+        return {"events" : events.data}
+
+    except Exception as e:
+        print(f"Error fetching events: {e}")
+        return[]    
