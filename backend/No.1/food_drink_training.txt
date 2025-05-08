@@ -1,0 +1,197 @@
+__label__Sake Sushi(California Roll)
+__label__Sake Sushi(Dragon Roll)
+__label__Sake Sushi(Tuna Nigiri)
+__label__Asahi Beer Tempura
+__label__Green Tea Ramen(Shoyu)
+__label__Sapporo Beer Ramen(Miso)
+__label__Hot Sake Udon
+__label__Japanese Lager Katsu Curry
+__label__Ramune Takoyaki
+__label__Soju Fried Chicken (Korean)
+__label__Rice Wine Kimchi
+__label__Soju Bibimbap
+__label__Red Wine (Pinot Noir) Beef Bulgogi
+__label__Sake Grilled Mackerel
+__label__Green Tea Seaweed Salad
+__label__Red Wine (Merlot) Peking Duck
+__label__Jasmine Tea Dim Sum
+__label__Tsingtao Beer Char Siu
+__label__White Wine (Riesling) Sweet and Sour Pork
+__label__Asahi Beer Fried Rice
+__label__Green Tea Chop Suey
+__label__Ramune Spring Rolls
+__label__Sake Hot Pot
+__label__Thai Iced Tea Pho (Beef)
+__label__Jasmine Tea Pho (Chicken)
+__label__Thai Iced Tea Pho (Shrimp)
+__label__Iced Coffee Banh Mi 
+__label__White Wine (Chardonnay) Banana Leaf Wrapped Fish 
+__label__Tsingtao Beer Curry Laksa
+__label__Sake Laksa
+__label__Chardonnay Pineapple Fried Rice
+__label__Tsingtao Beer Sichuan Hot Pot
+__label__White Wine (Sauvignon Blanc) Mapo Tofu
+__label__Red Wine (Zinfandel) Sichuan Pepper Chicken 
+__label__Riesling Mongolian Beef
+__label__Green Tea Chow Mein
+__label__Thai Iced Tea Banh Xeo
+__label__Iced Green Tea Goi Cuon (Vietnamese Spring Roll)
+__label__Jasmine Tea Bao Buns (Pork)
+__label__Red Wine (Cabernet Sauvignon) Roast Duck
+__label__White Wine (Pinot Gris) Grilled Pork 
+__label__Belgian Beer Crispy Prok Belly
+__label__Jasmine Tea Dim Sum (Steamed Buns)
+__label__Light Lager Pineapple Pork
+__label__Sake Crispy Spring Rolls 
+__label__Mango Lassi Chicken Satay
+__label__Thai Iced Tea Pad Thai
+__label__Riesling Green Curry (Chicken)
+__label__Red Wine (Merlot) Massaman Curry
+__label__Singha Beer Tom Yum Soup
+__label__German Lager Sauerbraten (German Pot Roast)
+__label__White Wine(Riesling) Wiener Schnitzel
+__label__Wheat Beer Pretzels 
+__label__Pilsner Beer Bratwurst
+__label__Kolsch Beer  Currywurst
+__label__German White Wine (Gewürztraminer) Sauerkraut
+__label__Pilsner Beer Kartoffelsalat (Potato Salad)
+__label__Weissbier Kartoffelpuffer (Potato Pancakes)
+__label__Red Wine (Cabernet Sauvignon) Goulash
+__label__White White (Pinot Griogo) Chicken Paprikash
+__label__Lager Beer Pirogi (Pierogi)
+__label__Chardonnay Beef Stroganoff
+__label__Sauvignon Blanc Chicken Kiev
+__label__Tomato Soup Grilled Cheese Sandwhich
+__label__Chardonnay Mac and Cheese
+__label__IPA Beer Buger (Beef)
+__label__Pale Ale  Cheeseburger
+__label__Red Wine (Malbec) Steak (Ribeye)
+__label__Red Wine (Cabernet Sauvignon) Steak (Sirloin)
+__label__Red Wine (Pinot Noir) Steak (Filet Mignon)
+__label__IPA Beer BBQ Ribs
+__label__Iced Tea Pulled Pork Sandwich
+__label__Lemonade Fried Catfish
+__label__Sweet Tea Chicken Fried Steak
+__label__Chardonnay Fried Shrimp
+__label__Champagne  Lobster Tail
+__label__White Wine (Chardonnay) Clam Chowder
+__label__Champagne  Oysters Rockfeller
+__label__Pale Ale  Fish Tacos
+__label__Margarita Taco (Beef)
+__label__Corona Beer Taco (Chicken)
+__label__Sangria Enchiladas
+__label__Margarita Quesadillas
+__label__Tequila  Guacamole and Chips 
+__label__Lager Beer Chili
+__label__Red Wine (Chianti) Spaghetti Bolognese
+__label__Red Wine (Cabernet Sauvignon) Lasagna
+__label__Pinot Grigio Pizza (Margherita)
+__label__IPA Beer Pizza (Pepperoni)
+__label__Sweet Wine (Moscato) Pizza (Hawaiinan)
+__label__Chardonnay Fettuccine Alfredo
+__label__White Wine (Sauvignon Blanc) Pasta Primavera
+__label__White Wine (Pinot Grigio) Pasta Carbonara
+__label__White Wine (Chardonnay) Caesar Salad 
+__label__Lager Beer Cauliflower Wings
+__label__Jasmine Tea Vegetable Stir Fry
+__label__Lime Margarita Vegetarian Tacos
+__label__Rosé Wine Grilled Veggies 
+__label__Lager Beer Cheeseburger
+__label__Bourbon  BBQ Ribs
+__label__Lemonade Hot Dog
+__label__Pilsner Beer Mac and Cheese 
+__label__Iced tea Fried Chicken 
+__label__Sweet Tea Fried Chicken 
+__label__Craft Beer Pulled Pork Sandwich
+__label__Chardonnay Clam Chowder
+__label__Muscadet Loster Roll
+__label__Red Wine (Bordeaux) Steak Frites
+__label__White Wine (Sauvignon Blanc) Croque Monsieur
+__label__Red Wine (Pinot Noir) Boeuf Bourguingon 
+__label__Champagne  Quiche Lorraine
+__label__Rosé Wine Ratatouille
+__label__Monaco French Onion Soup
+__label__Espresso Crepes (Nutella)
+__label__Milk  Crepes (Nutella)
+__label__Merlot Coq au Vin
+__label__Chablis Escargot
+__label__Red Wine (Pinot Noir) Duck Confit
+__label__Cider Duck Confit
+__label__Dry Riesling Moules Marinieres (Mussels)
+__label__Cabernet Sauvignon Beef Wellington 
+__label__Procescco Pizza Margherita
+__label__Pinot Grigio Spaghetti Carbonara
+__label__Sangiovese Lasagna
+__label__Chardonnay Fettuccine Alfredo
+__label__Negroni Margherita Pizza
+__label__Chianti Penne Arrabiata
+__label__Moscato Ravioli(Spinach & Ricotta) 
+__label__Espresso Martini Tiramisu
+__label__Espresso Tiramisu
+__label__Chardonnay Risotto (Mushroom)
+__label__Barolo Ossobuco
+__label__Shiraz Eggplant Parmesan
+__label__Zinfandel Polenta
+__label__Syrah Pasta Puttanesca
+__label__Albarino Paella (Seafood)
+__label__Rioja Pealla (Meat)
+__label__Vermouth Tortilla Espanola
+__label__Hot Chocolate Churros
+__label__Sangria Gazpacho
+__label__Tempranillo Patatas Bravas
+__label__Dry Sherry Serrano Ham 
+__label__Cava Croquetas (Spanish Ham)
+__label__Red Wine (Garnacha) Pisto Manchego
+__label__Verdejo Fried Calamari (Spanish Style)
+__label__Malbec Empanadas (Beef)
+__label__Aguardiente Arepas (Cheese)
+__label__Rum Bandeja Paisa (Colombian)
+__label__Caipirinha Churrasco (Brazilian)
+__label__Cachaca Feijoada
+__label__Caipirinha Moqueca (Brazilian Fish Stew)
+__label__Pisco Sour Ceviche (Peruvian)
+__label__Pisco  Anticuchos (Beef Skewers)
+__label__Margarita Tacos (Al Pastor)
+__label__Craft Beer Burritos (Beef)
+__label__Mojito Enchiladas
+__label__Tequila Sunrise Fajitas (Chicken)
+__label__Lager Beer Guacamole & Chips
+__label__IPA Beer Chili Con Carne
+__label__Sazerac Jambalaya
+__label__Lemonade Po'Boy (Shrimp)
+__label__Iced Tea Gumbo
+__label__Pale Ale  Crawfish Etouffee
+__label__Lager Beer Red Beans and Rice
+__label__Sweet Tea Fried Catfish
+__label__Sauvignon Blanc Tuna Poke
+__label__Chardonnay Ahi Poke
+__label__Paloma Shrimp Tacos
+__label__Gin and Tonic  Grilled Fish Tacos
+__label__Iced Coffee Pork Belly Banh Mi
+__label__Jasmine Tea Vietnamese Pho (Beef)
+__label__Iced Green Tea Pho (Chicken)
+__label__Sparkling Water Banh Xeo (Vietnamese Pancake)
+__label__Coconut Water Bun Cha (Vietnamese BBQ)
+__label__Soju Korean BBQ (Beef)
+__label__Rice Wine Kimchi
+__label__Sake Fried Chicken (Korean)
+__label__Green Tea Bibimbap
+__label__Lemonade Japchae (Korean Stir Fry Noodles)
+__label__Soju Gimbap
+__label__Sake Spicy Tuna Roll
+__label__Sparkling Water California Roll
+__label__Soju  Dragon Roll 
+__label__Green Tea Ebi Tempura
+__label__Sake Edamame
+__label__Green Tea Miso Soup
+__label__Iced Gree Tea Chicken Katsu
+__label__Ginger Ale Beef Teriyaki
+__label__Chardonnay Tempura Shrimp
+__label__Iced Gree Tea Ramen (Shoyu)
+__label__Sake Shabu-Shabu
+__label__Weizenbier Currywurst (German Sausage)
+__label__Pilsner Beer Bratwurst
+__label__Dry Riesling Wiener Schnitzel
+__label__Gruner Veltliner Spaetzle (German Noodles)
+__label__Red Wine (Zinfandel) Sauerbraten (Beef)
+__label__Lemonade Pretzels 
