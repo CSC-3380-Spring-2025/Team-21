@@ -32,12 +32,16 @@ Styles Guide(s): [link]
  3) Create .env file also in the root directory it should look like this
     
 GOOGLE_MAPS_API_KEY=Appropriate Key
+
 EVENTBRITE_API_KEY=Appropriate Key
+
 SERPAPI_KEY=Appropriate Key
 
 SUPABASE_URL="Appropriate Key"
 
 SUPABASE_API_KEY="Appropriate Key"
+
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=Approprite Key
 
 Appropriate Keys have been shared privately
 
@@ -46,8 +50,21 @@ for:
 Windows: .venv\Scripts\activate
 MaC / Linux : source .venv/bin/activate
 
-Finally install all dependacies. These are listed in requirements.txt
-to install them run : pip install -r requirements.txt
+Finally install all dependacies.
+
+To install front end dependacies naviagte to frontend\event-search directory and then run:
+
+npm i
+
+in the terminal.
+
+for backend dependicies:
+
+These are listed in requirements.txt
+to install them run :
+pip install -r requirements.txt
+
+in the terminal.
     
 
 
