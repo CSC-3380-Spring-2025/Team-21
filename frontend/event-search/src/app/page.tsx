@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import EventCarousel from "./components/EventCarousel";
 import EventCreationForm from "./components/UserEventsForm";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // Define the Event type matching the backend response
@@ -16,7 +17,7 @@ type Event = {
   thumbnail?: string | null; // Optional thumbnail field
   latitude: number;  
   longitude: number; 
-  ticketinfo: string; 
+  ticketinfo?: string; 
 };
 
 const fetchEvents = async (query: string = ""): Promise<Event[]> => {

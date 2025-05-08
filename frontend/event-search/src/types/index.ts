@@ -54,7 +54,7 @@ export type SerpApiEvent = {
     eventdescription: string;
     eventthumbnail?: string | null;
     thumbnail?: string | null;
-    ticketLink: string;
+    ticketLink?: string;
     latitude: number;
     longitude: number;
   };
