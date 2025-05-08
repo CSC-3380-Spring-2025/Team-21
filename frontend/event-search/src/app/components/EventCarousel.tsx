@@ -15,7 +15,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import MapsPanel from '../components/MapsPannel'; // Import the MapsPanel component
+import MapsPanel from "../components/MapsPannel";
 
 import { Event } from "@/types"; // Import the Event type I also merged the two types into one
 interface EventCarouselProps {
@@ -25,7 +25,7 @@ interface EventCarouselProps {
 const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
   const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
-  const [showMap, setShowMap] = React.useState<boolean>(false); // State for map visibility
+  const [showMap, setShowMap] = React.useState<boolean>(false);
 
   const handleDetailsClick = (event: Event) => {
     setSelectedEvent(event);
@@ -39,7 +39,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
   };
 
   const handleGetDirectionsClick = () => {
-    setShowMap(true); // Show the map when the button is clicked
+    setShowMap(true); 
   };
 
   return (
@@ -49,8 +49,8 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
           {events.map((event, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
               <div className="p-1">
-                <Card className="h-96 flex flex-col">
-                  <CardHeader>
+                <Card className="flex flex-col h-full">
+                  <CardHeader className="flex-shrink-0">
                     {event.thumbnail ? (
                       <img
                         src={event.thumbnail}
@@ -62,18 +62,17 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
                         No Thumbnail
                       </div>
                     )}
-                    <CardTitle className="text-2xl">{event.eventname}</CardTitle>
-                    <p className="mt-2 text-sm">
+                    <CardTitle className="text-2xl truncate">{event.eventname}</CardTitle>
+                    <p className="mt-2 text-sm truncate">
                       <strong>Date:</strong> {event.eventdate}
                     </p>
-                    <CardDescription className="overflow-hidden mt-2 text-ellipsis">
-                      <div className="line-clamp-2">{event.eventdescription}</div>
+                    <CardDescription className="mt-2 text-ellipsis overflow-hidden line-clamp-2">
+                      {event.eventdescription}
                     </CardDescription>
                   </CardHeader>
 
-                  <CardFooter className="flex justify-between mt-auto">
+                  <CardFooter className="flex justify-between items-end mt-auto">
                     <p className="truncate text-sm">{event.eventlocation}</p>
-
                     <Button onClick={() => handleDetailsClick(event)} className="ml-2 self-end">
                       See details
                     </Button>
@@ -106,9 +105,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
 
             {/* Modal Content */}
             <div className="p-8">
-              <h2 className="text-3xl font-bold mb-2">
-                {selectedEvent.eventname}
-              </h2>
+              <h2 className="text-3xl font-bold mb-2">{selectedEvent.eventname}</h2>
               <p className="text-md text-gray-600 mb-4">
                 <strong>Date:</strong> {selectedEvent.eventdate}
               </p>
@@ -137,14 +134,13 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ events }) => {
                   Buy Tickets
                 </button>
                 <button
-                  onClick={handleGetDirectionsClick} // Show the map when clicked
+                  onClick={handleGetDirectionsClick}
                   className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                 >
                   Get directions
                 </button>
               </div>
 
-              {/* Maps Panel for Directions - Only show when 'Get directions' is clicked */}
               {showMap && (
                 <MapsPanel
                   destinationLat={selectedEvent.latitude}
