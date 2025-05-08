@@ -264,3 +264,29 @@ def get_all_events(supabase: Client):
     except Exception as e:
         print(f"Error fetching events: {e}")
         return[]    
+
+def insert_profile_to_supabase(profile_data: Dict[str, str], supabase:Client) -> Dict[str, str]:
+    try:
+        print(f"Preparing to insert profile: {profile_data}")  # Debugging: print the profile data before insertion
+        # Check if the profile already exists
+        existing_profile = supabase.table("profiles").select("email").eq("email", profile_data["email"]).execute()
+
+        if not existing_profile.data:
+            response = supabase.table("profiles").insert(profile_data).execute()
+            print(f"Inserted response: {response.data}")  # Debugging: print the response from the insert
+            return {
+                "success": True,
+                "message": f"Profile with email '{profile_data['email']}' inserted successfully."
+            }
+        else:
+            print(f"Profile with email '{profile_data['email']}' already exists. Skipping insert.")
+            return {
+                "success": False,
+                "message": f"Profile with email '{profile_data['email']}' already exists."
+            }
+    except Exception as e:
+        print(f"Error inserting profile: {e}")
+        return {
+            "success": False,
+            "message": f"Error inserting profile: {e}"
+        }

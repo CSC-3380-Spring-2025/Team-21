@@ -5,6 +5,7 @@ from supabase import create_client, Client
 from api_tools import fetch_event_data, add_lat_lng_to_events
 from utils.serp_data_parser import extract_event_data, parse_event_datetime
 from utils.db_operations import insert_events_to_supabase, search_from_db, get_all_events
+from utils.account_utils import register_user, login_user
 import googlemaps
 from flask_cors import CORS
 from datetime import datetime
@@ -34,6 +35,9 @@ def get_event_route():
 
 @app.route("/api/events/search", methods=["GET"])
 def search_events_route():
+    query = request.args.get("query")  # Get search query from URL parameters
+    events = search_from_db(query)  
+    return jsonify(events)
     search_term = request.args.get("query")  
     if not search_term:
         return jsonify({"error": "No search term provided"}), 400

@@ -17,17 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import MapsPanel from "../components/MapsPannel";
 
-type Event = {
-  eventid: number;
-  eventname: string;
-  eventdate: string;
-  eventlocation: string;
-  eventdescription: string;
-  thumbnail?: string | null;
-  latitude: number;
-  longitude: number;
-};
-
+import { Event } from "@/types"; // Import the Event type I also merged the two types into one
 interface EventCarouselProps {
   events: Event[];
 }

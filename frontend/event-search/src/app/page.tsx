@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import EventCarousel from "./components/EventCarousel";
 import EventCreationForm from "./components/UserEventsForm";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // Define the Event type matching the backend response
@@ -16,7 +17,7 @@ type Event = {
   thumbnail?: string | null; // Optional thumbnail field
   latitude: number;  
   longitude: number; 
-  ticketinfo: string; 
+  ticketinfo?: string; 
 };
 
 const fetchEvents = async (query: string = ""): Promise<Event[]> => {
@@ -40,6 +41,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [showForm, setShowForm] = useState(false); // Manage visibility of the form
+  const router = useRouter();
 
   // Fetch events on initial render
   useEffect(() => {
@@ -56,17 +58,18 @@ export default function Home() {
     getEvents();
   }, []);
 
-  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const fetchedEvents = await fetchEvents(searchQuery);
-      setEvents(fetchedEvents);
-    } catch (err) {
-      setError("Failed to fetch search results");
-    } finally {
-      setLoading(false);
+  // Handle search: when the user clicks the Search button,
+  // fetch events based on the provided search text.
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    if (!searchQuery.trim()) {
+      console.log("Search query is empty.");
+      return;
     }
+
+    // Navigate to the search results page, passing the query
+    router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
   };
 
   // Handle event form submission
