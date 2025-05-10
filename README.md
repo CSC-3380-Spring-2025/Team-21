@@ -113,6 +113,10 @@ to install them run : pip install -r requirements.txt
 
 Required IDE extentions : You will need a python extention
 
+ event_search
+
+=======
+event_search_serp_search_direct
 Major Libraries
 Flask==3.1.0
 
@@ -126,7 +130,11 @@ python-dotenv==1.0.1
 
 beautifulsoup4==4.13.3
 
-(Etc. list in the file)
+ event_search
+(Etc. All found in file)
+=======
+
+event_search_serp_search_direct
 
 ## Commands
 Describe how the commands and process to launch the project on the main branch in such a way that anyone working on the project knows how to check the affects of any code they add.
